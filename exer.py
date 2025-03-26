@@ -1,4 +1,5 @@
 import datetime
+
 qttd_transacoes = 0
 #esta variável é a responsável por guardar a data
 """foi colocada uma data aleatória para que o código pudesse iniciar
@@ -13,12 +14,65 @@ data_corrente = datetime.datetime.now()
 data_corrente_hora =  data_corrente.strftime("%d-%m-%Y %H:%M:%S")
 data_corrente_formatada = data_corrente.strftime("%d-%m-%Y")
 
-#variáveis globais
+########################################################## variáveis globais #############################
 saldo=0
 #lista responsável por guardar os registros de depósito e saque
 extrato = []
 
 verifica_dia=""
+
+#lista responsável por guardar os registros de contas criadas
+listaContas = []
+
+#lista responsável por guardar os usuários criados
+listaUsuario = []
+##########################################################################################################
+# verifica se o CPF está cadastrado ou não
+def verificaCpf(cpf):
+    global listaUsuario
+    
+    
+    for usuario in listaUsuario:
+        if usuario["CPF"] == cpf:
+            print("CPF já cadastrado!")
+            return True
+        
+    
+    return False
+
+# cria usuários
+def criaUsuario():
+    cpf = str(input("insira seu cpf: "))
+    autenticacao = verificaCpf(cpf)
+    if autenticacao:
+        print("cliente já possui cadastro")
+        menu()
+    else:
+        nome = input("Dgite seu nome: ")
+        dtNascimento = input("insira sua data de nascimento: ")
+        endereco = input("insira seu endereço: ")
+    novoUsuario = {"CPF": cpf, "nome": nome,"nascimento": dtNascimento, "endereço": endereco}
+    listaUsuario.append(novoUsuario)
+    menu()
+
+def criaconta():
+    global listaContas
+    cpf= str(input("Informe seu CPF: "))
+    
+    if verificaCpf(cpf):
+        agencia = "0001"
+        numeroConta= len(listaContas) + 1
+        
+        novaConta ={"CPF":cpf,"agência": agencia, "numéro_conta":numeroConta}
+        listaContas.append(novaConta)
+    else:
+        print("CPF não cadastrado!")
+    menu()
+    
+    
+    
+    
+    
 
 
 
@@ -162,7 +216,7 @@ def extrato_conta():
 
     
 def menu():
-    opcoes = ["saque: 1","depósito: 2", "extrato: 3","finalizar operação: 4"]
+    opcoes = ["saque: A","depósito: B", "extrato: C","finalizar operação: D","cadastrar usário: E", "criar conta: F", "listar usuários: G","listar contas: H"]
     for item in opcoes:
         print(item)
     
@@ -170,16 +224,25 @@ def menu():
     print("-------------------------")    
     while True:
         
-        opcao_escolhida = int(input("digite a opção desejada: "))
+        opcao_escolhida = input("digite a opção desejada: ")
             
-        if opcao_escolhida == 1:
+        if opcao_escolhida == "A":
             saque()
-        elif opcao_escolhida == 2:
+        elif opcao_escolhida == "B":
             deposito()
-        elif opcao_escolhida == 3:
+        elif opcao_escolhida == "C":
             extrato_conta()
-            
-        elif opcao_escolhida == 4:
+        elif opcao_escolhida == "E":
+            criaUsuario()
+        elif opcao_escolhida == "F":
+            criaconta()
+        elif opcao_escolhida == "G":
+            print(listaUsuario)
+            menu()
+        elif opcao_escolhida == "H":
+            print(listaContas)
+            menu()
+        elif opcao_escolhida == "D":
             print("operação finalizada!")
             break
         else:
