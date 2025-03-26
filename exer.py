@@ -143,7 +143,7 @@ def deposito(saldo, verifica_dia, qttd_transacoes):
             
         
     
-def saque(*qttd_transacoes=qttd_transacoes, verifica_dia=verifica_dia, saldo=saldo, extrato=extrato):
+def saque(qttd_transacoes=qttd_transacoes, verifica_dia=verifica_dia, saldo=saldo, extrato=extrato):
     #global qttd_transacoes, verifica_dia, saldo, extrato
 
 
