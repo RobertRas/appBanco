@@ -97,9 +97,9 @@ def verificadorDia():
         return True
 
 
-def deposito():
+def deposito(saldo, verifica_dia, qttd_transacoes):
     
-    global saldo, verifica_dia, qttd_transacoes
+    #global 
     valor_deposito=0
     
 
@@ -143,10 +143,9 @@ def deposito():
             
         
     
-def saque():
-    global qttd_transacoes, verifica_dia
-    global saldo
-    global extrato
+def saque(*qttd_transacoes=qttd_transacoes, verifica_dia=verifica_dia, saldo=saldo, extrato=extrato):
+    #global qttd_transacoes, verifica_dia, saldo, extrato
+
 
 
     if verifica_dia:
